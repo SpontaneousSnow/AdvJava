@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 
+
 export class GameGrid extends Component {
   constructor(props){
       super(props)
@@ -16,8 +17,6 @@ export class GameGrid extends Component {
     axios
       .get(cors+url)
       .then(response => {
-    //     this.setState({games: response.data.applist.apps});
-        //console.log(response.data.applist.apps[70000]);
         let gameArray=[];
         for(let i=1; i<=50; i++){
         let x = Math.floor(Math.random()*(70000-3));
@@ -33,9 +32,9 @@ export class GameGrid extends Component {
         // GET failed, log the error
         console.log(err);
       });
-      console.log(this.state);
     }
       
+
     render() {
         const list = this.state.games.map( (g, i) => {
             return <Game 
@@ -44,23 +43,29 @@ export class GameGrid extends Component {
             />;
         });
         return (
-            <div>
-                <h1>My games are:</h1>
-                {list}
+            <div className="card col-md-3">
+                <div className="card-body">
+                    <h3>{list}</h3>
+                </div>
             </div>
         );
     }
 }
 
+
 class Game extends React.Component {
+
     render() {
       return (
-        <div style={{'borderStyle': 'dotted'}}>
-          <h3>{this.props.name}</h3>
-          <p>{this.props.email}</p>
+        <div className="card col-md-3">
+            <div className="card-body">
+            <h3>{this.props.name}</h3>
+            <p>{this.props.email}</p>
+            </div>
         </div>
       );
     }
   }
+
 
 export default GameGrid;

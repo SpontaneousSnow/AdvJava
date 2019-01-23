@@ -1,73 +1,79 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
-// Note: ensure you've installed axios with 'npm install axios'
+import Click from "./card.js";
 import axios from "axios";
 
-// 'Outer' component that will contain all the User 'cards'
-class GameGrid extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = { games: [] };
+ export class GameGrid extends Component {
+  constructor(props){
+      super(props)
+      this.state={
+          games:[]
+      }
   }
-  
-
-  // Runs when component is mounted
-  componentDidMount() {
-    // Get data for 50 users
+  componentDidMount(){
     let cors = 'https://cors-anywhere.herokuapp.com/';
     let url ='http://api.steampowered.com/ISteamApps/GetAppList/' +
     'v0002/?key=05935F7247A1BE871C02481F57800741&format=json';
-    let url1 = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=05935F7247A1BE871C02481F57800741&steamids=76561198022775527';
     axios
       .get(cors+url)
-      //.get(cors+url)
       .then(response => {
-        // GET request was successful, store the users in state
-        //this.setState({ games: response.data.game });
-        // if(response.ok) return response.json();
-        // throw new Error('Request failed.');
-       // console.log(response.data);
-       this.setState({games: response.data})
-       console.log(response.data.applist.apps[0]);
         let gameArray=[];
-        for(let i; i<=50; i++){
-        gameArray.push(response.data.applist.apps[i]);
+        for(let i=1; i<=50; i++){
+        let x = Math.floor(Math.random()*(70000-3));
+        gameArray.push(response.data.applist.apps[x]);
         }
-        console.log(gameArray);
+        this.setState({
+            games:gameArray
+        })
+        console.log(this.state);
+        
       })
       .catch(err => {
         // GET failed, log the error
         console.log(err);
       });
+    }
+}
+
+class Click extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { likes: 0 };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({ likes: this.state.likes + 1 });
   }
 
   render() {
-  //   const gameList = this.state.games.map(g => (
-  //     <Game
-  //       appid={g.applist.apps[[0]]}
-  //       name={g.applist.apps[[0]]}
-  //     />
-  //   ));
-
-  //   return (
-  //     <div className="columns is-multiline">
-  //       {gameList}
-  //     </div>);
-  // }
+    return (
+      <div>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={this.handleClick.bind(this)}
+        >
+          Like
+        </button>
+        <h1>{this.state.likes}</h1>
+      </div>
+    );
   }
 }
 
-// class Game extends React.Component{
-//   render() {
-//     return (
-//       <div style={{'borderStyle': 'dotted'}}>
-//         <h3>{this.props.appid}</h3>
-//         <p>{this.props.name}</p>
-//       </div>
-//     );
-//   }
-// }
+class Content2 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div id="user">
+        <p style={{ color: "red" }}>{`${this.props.appid} ${this.props.name}`}</p>
+      </div>
+    );
+  }
+}
 
-//ReactDOM.render(<GamerGrid />, document.getElementById("root"));
- export default GameGrid;
+export default GameGrid;
