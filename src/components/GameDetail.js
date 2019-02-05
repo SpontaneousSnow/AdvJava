@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-class GameCard extends React.Component {
+class GameDetail extends React.Component {
   render() {
     return (
       <div className="column is-3">
@@ -29,15 +29,15 @@ class GameCard extends React.Component {
   }
 }
 
-GameCard.defaultProps = {
+GameDetail.defaultProps = {
     name: 'name',
     cover: 'http://via.placeholder.com/400x400',
     nat: ''
   };
   
   // Checks that the correct type of props are supplied:
-  GameCard.propTypes = {
+  GameDetail.propTypes = {
     name: PropTypes.string
   };
 
-export default GameCard;
+export default GameDetail;
