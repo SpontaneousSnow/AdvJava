@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import axios from 'axios'
-import GameCard from './GameCard';
+import CompanyCard from './CompanyCard';
 import DropDown from './DropDown';
 import SearchBar from './SearchBar';
 
  
-class Games extends Component {
+class Companies extends Component {
     constructor(props){
       super(props)
       this.state={
-          games:[],
+          companies:[],
           genresSelected: 'All',
           platformsSelected: 'All',
           sort: 'no',
@@ -21,7 +21,7 @@ class Games extends Component {
   componentDidMount(){
     let cors = 'https://cors-anywhere.herokuapp.com/';
     let uKey = "c16e070142351322b1e90030d7b860ba";
-    let url = "https://api-v3.igdb.com/games?fields=id,name,rating,platforms.name,genres.name,cover.url&limit=50";
+    let url = "https://api-v3.igdb.com/companies?fields=*,logo.url&limit=50";
     axios
       .get(cors+url,{
         method: 'GET',
@@ -37,9 +37,9 @@ class Games extends Component {
         //   console.log(response.data[i].genres[i].name)
         // }
         this.setState({
-            games:response.data
+            companies:response.data
         })
-        console.log(this.state.games); 
+        console.log(this.state.companies); 
       })    
       .catch(err => {
         // GET failed, log the error
@@ -68,48 +68,42 @@ class Games extends Component {
     }
   
     render() {
-      let i=0;
-    const gameData = this.state.sort === 'no' ? this.state.games : [].concat(this.state.games)
+
+    const companyData = this.state.sort === 'no' ? this.state.companies : [].concat(this.state.companies)
     .sort((a, b) => {
       if(a.name < b.name) return -1;
       if(a.name > b.name) return 1;
       return 0;
     });
 
-      let gameList = gameData.map(game => {
-        let genre=[];
-        genre.push(game.genres)
-        //let i=game.genres.length
-        //console.log(genre)
-        const genreMatch = (this.state.genresSelected === game.genres || this.state.genreSelected === 'All');
-        const platformMatch = (this.state.platformsSelected === game.platforms || this.state.platformSelected === 'All');
-        const gameNameMatch = game.name.startsWith(this.state.searchText);
-        if(game.cover===undefined || game.cover==="undefined"){
-          game.cover="http://via.placeholder.com/400x400"
+      let companyList = companyData.map(company => {
+        //let i=company.genres.length
+        //console.log(company.genres)
+        const genreMatch = (this.state.genresSelected === company.genres || this.state.genreSelected === 'All');
+        const platformMatch = (this.state.platformsSelected === company.platforms || this.state.platformSelected === 'All');
+        const companyNameMatch = company.name.startsWith(this.state.searchText);
+        if(company.logo===undefined || company.logo==="undefined"){
+          company.logo="http://via.placeholder.com/400x400"
         }else{
-          game.cover=game.cover.url
-        }if(game.genres===undefined || game.genres === null){
-          //game.genres=game.genres[].push("All")
-        }else{
-          console.log(game.genres[i].name)
+          company.logo=company.logo.url
         }
-        //return (genreMatch&platformMatch&gameNameMatch) ? (
-        return (gameNameMatch) ? (
-            <GameCard key={game.id} id={game.id} name={game.name} cover={game.cover} />
+        //return (genreMatch&platformMatch&companyNameMatch) ? (
+        return (companyNameMatch) ? (
+            <CompanyCard key={company.id} id={company.id} name={company.name} logo={company.logo} />
         ) :null;
       });
-      i++;
+
       return (
         <section className="section">
           <DropDown options={['All','Simulator','Puzzle','Quiz/Trivia','Fighting','Tactical','Strategy','Adventure','Role-playing (RPG)','Shooter','Music','Indie']} name="genresSelected" handleChange={this.handleChange} label="Filter by genre" selected={this.state.genresSelected} />
           <DropDown options={['All','PlayStation 2','PDP-10','Xbox 360','PC','MAC','Playstation 3','MSX','iOS','PlayStation','ColecoVision'].concat(this.state.platformsSelected)} name="platformsSelected" handleChange={this.handleChange} label="Filter by platform" selected={this.state.platformsSelected} />
-          <SearchBar name="searchText" label="Search by game name" value={this.state.searchText} handleChange={this.handleChange} placeholder={"e.g. The Witcher"} />
+          <SearchBar name="searchText" label="Search by company name" value={this.state.searchText} handleChange={this.handleChange} placeholder={"e.g. The Witcher"} />
           <div className="columns is-multiline">
-            {gameList}
+            {companyList}
           </div>
         </section>
       );
     }
   }
 
-export default Games;
+export default Companies;
