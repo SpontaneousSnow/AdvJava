@@ -1,30 +1,22 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 
 class CompanyDetail extends React.Component {
   render() {
     return (
-      <div className="column is-3">
       <div className="card" >
-        <div className="card-image">
-          <figure className="image is-4by3">
-            <img alt='Profile' src={this.props.logo}></img>
-          </figure>
+        <div >
+          <img margin="0px" height="100" width="100" alt='Profile' src={this.props.logo}></img>
         </div>
         <div className="card-content">
           <div className="media">
             <div className="media-content">
-            <Link to={`/company/${this.props.id}`}>
-            <p className="title is-4">{this.props.name}</p>
-            </Link>
-              
-              {this.props.nat ? <p className="subtitle">{this.props.nat}</p> : null}
+              <p className="title is-4">{this.props.name}</p>
+              {this.props.description ? <p className="subtitle">{this.props.description}</p> : null}
             </div>
           </div>
         </div>
-      </div>
-    </div>    
+      </div>  
     );
   }
 }
@@ -32,7 +24,7 @@ class CompanyDetail extends React.Component {
 CompanyDetail.defaultProps = {
     name: 'name',
     logo: 'http://via.placeholder.com/400x400',
-    nat: ''
+    description: 'description'
   };
   
   // Checks that the correct type of props are supplied:

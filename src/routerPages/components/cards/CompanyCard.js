@@ -18,8 +18,6 @@ class CompanyCard extends React.Component {
             <Link to={`/company/${this.props.id}`}>
             <p className="title is-4">{this.props.name}</p>
             </Link>
-              
-              {this.props.nat ? <p className="subtitle">{this.props.nat}</p> : null}
             </div>
           </div>
         </div>
