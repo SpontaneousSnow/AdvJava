@@ -3,15 +3,16 @@ import axios from 'axios'
 import GameCard from './GameCard';
 import DropDown from './DropDown';
 import SearchBar from './SearchBar';
+import Slider from './Slider';
 
  
 class Games extends Component {
     constructor(props){
-      super(props)
+      super(props);
       this.state={
           games:[],
-          genresSelected: 'All',
-          platformsSelected: 'All',
+          genresSelected: 'all',
+          platformsSelected: 'all',
           sort: 'no',
           searchText: ''
       }
@@ -75,35 +76,43 @@ class Games extends Component {
       if(a.name > b.name) return 1;
       return 0;
     });
-
-      let gameList = gameData.map(game => {
-        let genre=[];
-        genre.push(game.genres)
-        //let i=game.genres.length
-        //console.log(genre)
-        const genreMatch = (this.state.genresSelected === game.genres || this.state.genreSelected === 'All');
-        const platformMatch = (this.state.platformsSelected === game.platforms || this.state.platformSelected === 'All');
-        const gameNameMatch = game.name.startsWith(this.state.searchText);
-        if(game.cover===undefined || game.cover==="undefined"){
+    let genre=[];
+    let platform=[];
+      let gameList = gameData.map((game, index) => {
+        if(game.cover===undefined || game.cover===null){
           game.cover="http://via.placeholder.com/400x400"
         }else{
           game.cover=game.cover.url
         }if(game.genres===undefined || game.genres === null){
-          //game.genres=game.genres[].push("All")
+            game.genres[i].push("All");  
         }else{
-          console.log(game.genres[i].name)
+          if(genre.includes(game.genres[i].name)=== false) genre.push(game.genres[i].name);
+          if(genre.includes(game.genres[i].name)=== false) game.genres.push("All");      
+        }if(game.platforms===undefined || game.platforms === null){
+        }else{
+          if(platform.includes(game.platforms[i].name)=== false) platform.push(game.platforms[i].name);
+          if(platform.includes(game.platforms[i].name)=== false) platform.push("All");   
         }
+        //console.log(this.state.genresSelected)
+        const genreMatch = (this.state.genresSelected === game.genres[i].name || this.state.genreSelected === '');
+        const platformMatch = (this.state.platformsSelected === platform || this.state.platformSelected === 'All');
+        const gameNameMatch = game.name.startsWith(this.state.searchText);
+        const sliderMatch = (this.state.sliderValue === game.rating || this.state.sliderValue === 0);
+        console.log(game.genres[i].name)
         //return (genreMatch&platformMatch&gameNameMatch) ? (
         return (gameNameMatch) ? (
-            <GameCard key={game.id} id={game.id} name={game.name} cover={game.cover} />
+            <GameCard key={index} id={game.id} name={game.name} cover={game.cover} />
         ) :null;
       });
       i++;
+      
       return (
         <section className="section">
-          <DropDown options={['All','Simulator','Puzzle','Quiz/Trivia','Fighting','Tactical','Strategy','Adventure','Role-playing (RPG)','Shooter','Music','Indie']} name="genresSelected" handleChange={this.handleChange} label="Filter by genre" selected={this.state.genresSelected} />
-          <DropDown options={['All','PlayStation 2','PDP-10','Xbox 360','PC','MAC','Playstation 3','MSX','iOS','PlayStation','ColecoVision'].concat(this.state.platformsSelected)} name="platformsSelected" handleChange={this.handleChange} label="Filter by platform" selected={this.state.platformsSelected} />
+          <DropDown options={['All'].concat(genre)} name="genresSelected" handleChange={this.handleChange} label="Filter by genre" selected={this.state.genresSelected} />
+          <DropDown options={['All'].concat(platform)} name="platformsSelected" handleChange={this.handleChange} label="Filter by platform" selected={this.state.platformsSelected} />
           <SearchBar name="searchText" label="Search by game name" value={this.state.searchText} handleChange={this.handleChange} placeholder={"e.g. The Witcher"} />
+          <Slider name="sliderValue" value={this.state.slider} handleChange={this.handleChange} />
+
           <div className="columns is-multiline">
             {gameList}
           </div>

@@ -25,7 +25,7 @@ class App extends Component {
           <div>
             <h1>Simple SPA</h1>
             <ul className="header">
-              <li><NavLink exact to="/">Home</NavLink>></li>
+              <li><NavLink exact to="/">Home</NavLink></li>
               <li><NavLink to="/games">Games</NavLink></li>
               <li><NavLink to="/companies">Companies</NavLink></li>
             </ul>

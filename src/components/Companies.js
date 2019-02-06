@@ -76,7 +76,7 @@ class Companies extends Component {
       return 0;
     });
 
-      let companyList = companyData.map(company => {
+      let companyList = companyData.map((company, index) => {
         //let i=company.genres.length
         //console.log(company.genres)
         const genreMatch = (this.state.genresSelected === company.genres || this.state.genreSelected === 'All');
@@ -89,7 +89,7 @@ class Companies extends Component {
         }
         //return (genreMatch&platformMatch&companyNameMatch) ? (
         return (companyNameMatch) ? (
-            <CompanyCard key={company.id} id={company.id} name={company.name} logo={company.logo} />
+            <CompanyCard key={index} id={company.id} name={company.name} logo={company.logo} />
         ) :null;
       });
 
