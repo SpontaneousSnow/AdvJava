@@ -77,27 +77,26 @@ class Games extends Component {
       //checks to see if genres is null and if it is set it to be "All"
       //if its not push the current value of genres into the array checking if they are already presnt first
       if(game.genres===undefined || game.genres === null){
-          game.genres="All";  
+        game.genres='All';
       }else{
-        if(genre.includes(game.genres[i].name)=== false) genre.push(game.genres[i].name);
-        if(genre.includes(game.genres[i].name)=== false) game.genres.push("All");      
+        if(genre.includes(game.genres[i].name)=== false) genre.push(game.genres[i].name);  
       }
       //does the same as the above if block but for platforms
       if(game.platforms===undefined || game.platforms === null){
+        game.platforms='All';
       }else{
-        if(platform.includes(game.platforms[i].name)=== false) platform.push(game.platforms[i].name);
-        if(platform.includes(game.platforms[i].name)=== false) platform.push("All");   
+        if(platform.includes(game.platforms[i].name)=== false) platform.push(game.platforms[i].name);  
       }
       //consts declared for the purpose of filtering data
       //filtrs for games with the matching genre or platform
-      const genreMatch = (this.state.genresSelected === game.genres[i].name || this.state.genreSelected === '');
-      const platformMatch = (this.state.platformsSelected === platform || this.state.platformSelected === 'All');
+      const genreMatch = (this.state.genresSelected === game.genres[i].name || this.state.genreSelected === 'All');
+      const platformMatch = (this.state.platformsSelected === game.platforms[i].name || this.state.platformSelected === 'All');
       //filters for games with the same name as the value of the search bar
       const gameNameMatch = game.name.startsWith(this.state.searchText);
       //filters games based on rating of slider value
       const sliderMatch = (this.state.sliderValue === game.rating || this.state.sliderValue === 0);
       //if the requirements are met return a generated card using the GameCard class with the input values
-      return (gameNameMatch) ? (
+      return (gameNameMatch&&genreMatch&&platformMatch) ? (
           <GameCard key={index} id={game.id} name={game.name} cover={game.cover} />
       ) :null;
     });

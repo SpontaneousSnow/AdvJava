@@ -21,18 +21,18 @@ class App extends Component {
       //linking router paths
       <HashRouter>
         <div>
-          <h1>Simons IDGB Website</h1>
+          <h1>Simons IGDB Website</h1>
           <ul className="header">
             <li><NavLink exact to="/">Home</NavLink></li>
             <li><NavLink to="/games">Games</NavLink></li>
             <li><NavLink to="/companies">Companies</NavLink></li>
           </ul> 
           <div className="content">
-              <Route exact path="/" component={Home}/>
-              <Route path="/games" component={Games}/>
-              <Route path="/companies" component={Companies}/>
-              <Route path="/game/:id" component={GameView}/>
-              <Route path="/company/:id" component={CompanyView}/>
+            <Route exact path="/" component={Home}/>
+            <Route path="/games" component={Games}/>
+            <Route path="/companies" component={Companies}/>
+            <Route path="/game/:id" component={GameView}/>
+            <Route path="/company/:id" component={CompanyView}/>
           </div>
         </div>
       </HashRouter>
