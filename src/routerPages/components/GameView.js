@@ -21,7 +21,7 @@ class GameView extends Component {
     //api key
     let uKey = "c16e070142351322b1e90030d7b860ba";
     //api for games with the id being passed into the url from clicked game on pervious page
-    let url = "https://api-v3.igdb.com/games/"+this.props.match.params.id+"?fields=*,cover.url";
+    let url = "https://api-v3.igdb.com/games/"+this.props.match.params.id+"?fields=*,cover.url,rating,platforms.name,genres.name";
     //passing api key in header then setting state of games array to equal the response data
     axios
     .get(cors+url,{
@@ -47,19 +47,26 @@ class GameView extends Component {
   render() {
     //renders a card for the selected game
     //if statments check to see if a cover photo is present
-    let gameList = this.state.games.map(game => {
-      if(game.cover===undefined || game.cover==="undefined"){
-        game.cover="http://via.placeholder.com/400x400"
-      }else{
-        game.cover=game.cover.url
+    let gameList = this.state.games.map((game, index) => {
+      if(!game.cover){
+        game.cover=[];
+        game.cover.push({url:'https://bit.ly/2GvICQs'})
+      }
+      if(!game.genres){
+        game.genres=[];
+        game.genres.push({name:'no genres'})
+      }
+      if(!game.platforms){
+        game.platforms=[];
+        game.platforms.push({name:'no platforms'})
       }
       //return a generated card using the GameDetail class with the input values
       return (
-        <GameDetail key={game.id} id={game.id} name={game.name} cover={game.cover} />
+        <GameDetail key={index} id={game.id} name={game.name} genres={game.genres.map(n => <span>  {n.name}  </span>)} platforms={game.platforms.map(n => <span>  {n.name}  </span>)}  rating={game.rating}  cover={game.cover.url} />
       ) 
     });
     //displays the input options on top of screen 
-    console.log(this.props.match.params.id);
+
     return (
       <div className="columns is-multiline">
         {gameList}

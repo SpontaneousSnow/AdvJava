@@ -72,7 +72,6 @@ class Games extends Component {
       if(!game.cover){
         game.cover=[];
         game.cover.push({url:'https://bit.ly/2GvICQs'})
-
       }
       //checks to see if genres is null and if it is set it to be "All"
       //if its not push the current value of genres into the array checking if they are already presnt first
@@ -93,7 +92,6 @@ class Games extends Component {
       //filtrs for games with the matching genre or platform
       const genreMatch = (this.state.genreSelected === game.genres[i].name || this.state.genreSelected === 'All');
       const platformMatch = (this.state.platformSelected === game.platforms[i].name || this.state.platformSelected === 'All');
-      console.log( this.state.genreSelected);
       //filters for games with the same name as the value of the search bar
       const gameNameMatch = game.name.startsWith(this.state.searchText);
       //filters games based on rating of slider value

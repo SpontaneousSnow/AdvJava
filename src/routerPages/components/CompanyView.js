@@ -47,8 +47,8 @@ class CompanyView extends Component {
     //renders a card for the selected company
     //if statments check to see if a logo photo is present
     const companyList = this.state.companies.map(company => {
-      if(company.logo===undefined || company.logo==="undefined"){
-        company.logo="http://via.placeholder.com/400x400"
+      if(!company.logo){
+        company.logo="https://bit.ly/2GvICQs"
       }else{
         company.logo=company.logo.url
       }
