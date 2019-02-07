@@ -1,3 +1,16 @@
+###################################
+Step 1.
+Install git and node.js
+
+Step 2.
+Using the command line git clone the file using the clone link or download the project as a zip
+
+Step 3.
+using command line inside of the application directory npm install react, react-router-dom and react-dom in order to get the necessary node modules.
+
+Step 4.
+In command line when still inside the directory, enter the command npm run start. This will open the React App in your web browser on a localhost:3000 server. Congratulations you have set up this application, happy coding.
+######################################
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
