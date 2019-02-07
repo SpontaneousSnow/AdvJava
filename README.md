@@ -9,6 +9,9 @@ using command line inside of the application directory npm install react, react-
 
 Step 4.
 In command line when still inside the directory, enter the command npm run start. This will open the React App in your web browser on a localhost:3000 server. Congratulations you have set up this application, happy coding.
+
+Link to application hosted on heroku
+https://morning-cove-57061.herokuapp.com/
 ######################################
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
