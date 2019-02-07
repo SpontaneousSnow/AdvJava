@@ -31,7 +31,7 @@ class GameDetail extends React.Component {
 
 GameDetail.defaultProps = {
     name: 'name',
-    cover: 'http://via.placeholder.com/400x400',
+    cover: 'https://bit.ly/2GvICQs',
     nat: ''
   };
   

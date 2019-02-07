@@ -13,8 +13,8 @@ class Games extends Component {
     super(props);
     this.state={
       games:[],
-      genresSelected: 'All',
-      platformsSelected: 'All',
+      genreSelected: 'All',
+      platformSelected: 'All',
       searchText: ''
     }
     this.handleChange = this.handleChange.bind(this);
@@ -69,35 +69,38 @@ class Games extends Component {
     //creates a unquie index as the key for each object
     //if statments check to see if a cover photo is present
     let gameList = this.state.games.map((game, index) => {
-      if(game.cover===undefined || game.cover===null){
-        game.cover="http://via.placeholder.com/400x400"
-      }else{
-        game.cover=game.cover.url
+      if(!game.cover){
+        game.cover=[];
+        game.cover.push({url:'https://bit.ly/2GvICQs'})
+
       }
       //checks to see if genres is null and if it is set it to be "All"
       //if its not push the current value of genres into the array checking if they are already presnt first
-      if(game.genres===undefined || game.genres === null){
-        game.genres='All';
+      if(!game.genres){
+        game.genres=[];
+        game.genres.push({name:'Puzzle'})
       }else{
         if(genre.includes(game.genres[i].name)=== false) genre.push(game.genres[i].name);  
       }
       //does the same as the above if block but for platforms
-      if(game.platforms===undefined || game.platforms === null){
-        game.platforms='All';
+      if(!game.platforms){
+        game.platforms=[];
+        game.platforms.push({name:'Wii U'})
       }else{
         if(platform.includes(game.platforms[i].name)=== false) platform.push(game.platforms[i].name);  
       }
       //consts declared for the purpose of filtering data
       //filtrs for games with the matching genre or platform
-      const genreMatch = (this.state.genresSelected === game.genres[i].name || this.state.genreSelected === 'All');
-      const platformMatch = (this.state.platformsSelected === game.platforms[i].name || this.state.platformSelected === 'All');
+      const genreMatch = (this.state.genreSelected === game.genres[i].name || this.state.genreSelected === 'All');
+      const platformMatch = (this.state.platformSelected === game.platforms[i].name || this.state.platformSelected === 'All');
+      console.log( this.state.genreSelected);
       //filters for games with the same name as the value of the search bar
       const gameNameMatch = game.name.startsWith(this.state.searchText);
       //filters games based on rating of slider value
       const sliderMatch = (this.state.sliderValue === game.rating || this.state.sliderValue === 0);
       //if the requirements are met return a generated card using the GameCard class with the input values
       return (gameNameMatch&&genreMatch&&platformMatch) ? (
-          <GameCard key={index} id={game.id} name={game.name} cover={game.cover} />
+          <GameCard key={index} id={game.id} name={game.name} cover={game.cover.url} />
       ) :null;
     });
     i++;
@@ -106,8 +109,8 @@ class Games extends Component {
     //displays all of the cards inside of multiline coloumn block
     return (
       <section className="section">
-        <DropDown options={['All'].concat(genre)} name="genresSelected" handleChange={this.handleChange} label="Filter by genre" selected={this.state.genresSelected} />
-        <DropDown options={['All'].concat(platform)} name="platformsSelected" handleChange={this.handleChange} label="Filter by platform" selected={this.state.platformsSelected} />
+        <DropDown options={['All'].concat(genre)} name="genreSelected" handleChange={this.handleChange} label="Filter by genre" selected={this.state.genreSelected} />
+        <DropDown options={['All'].concat(platform)} name="platformSelected" handleChange={this.handleChange} label="Filter by platform" selected={this.state.platformSelected} />
         <SearchBar name="searchText" label="Search by game name" value={this.state.searchText} handleChange={this.handleChange} placeholder={"e.g. The Witcher"} />
         <Slider name="sliderValue" value={this.state.slider} handleChange={this.handleChange} label="Rating Slider:" />
         <div className="columns is-multiline">

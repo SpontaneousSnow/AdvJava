@@ -21,7 +21,6 @@ class App extends Component {
       //linking router paths
       <HashRouter>
         <div>
-          <h1>Simons IGDB Website</h1>
           <ul className="header">
             <li><NavLink exact to="/">Home</NavLink></li>
             <li><NavLink to="/games">Games</NavLink></li>

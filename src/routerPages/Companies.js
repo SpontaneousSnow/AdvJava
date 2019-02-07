@@ -62,16 +62,14 @@ class Companies extends Component {
     //creates a unquie index as the key for each object
     //if statments check to see if a logo photo is present
     let companyList = this.state.companies.map((company, index) => {
-      if(company.logo===undefined || company.logo==="undefined"){
-        company.logo="http://via.placeholder.com/400x400"
-      }else{
-        company.logo=company.logo.url
+      if(!company.logo){
+        company.logo="https://bit.ly/2GvICQs"
       }
       //filters for companies with the same name as the value of the search bar
       const companyNameMatch = company.name.startsWith(this.state.searchText);
       //if the requirements are met return a generated card using the CompanyCard class with the input values
       return (companyNameMatch) ? (
-          <CompanyCard key={index} id={company.id} name={company.name} logo={company.logo} />
+          <CompanyCard key={index} id={company.id} name={company.name} logo={company.logo.url} />
       ) :null;
     });
     //displays the input options on top of screen 

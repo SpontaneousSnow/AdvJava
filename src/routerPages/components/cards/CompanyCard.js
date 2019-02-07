@@ -29,7 +29,7 @@ class CompanyCard extends React.Component {
 
 CompanyCard.defaultProps = {
     name: 'name',
-    logo: 'http://via.placeholder.com/400x400',
+    logo: 'https://bit.ly/2GvICQs',
     nat: ''
   };
   

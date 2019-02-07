@@ -1,5 +1,5 @@
 body {
-  background-color: #FFCC00;
+  background-color: #133942;
   padding: 20px;
   margin: 0;
 }
@@ -23,7 +23,7 @@ ul.header li a {
   display: inline-block;
 }
 .content {
-  background-color: #FFF;
+  background-color: #F2EEDB;
   padding: 20px;
 }
 .content h2 {
@@ -34,7 +34,7 @@ ul.header li a {
   margin-bottom: 10px;
 }
 .active {
-  background-color: #0099FF;
+  background-color: #2D3D39;
 }
 .slidecontainer {
   width: 100%;

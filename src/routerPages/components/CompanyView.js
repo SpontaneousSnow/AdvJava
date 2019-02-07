@@ -43,20 +43,21 @@ class CompanyView extends Component {
   }
 
   render() {
+    let i=0;
     //renders a card for the selected company
     //if statments check to see if a logo photo is present
-    let companyList = this.state.companies.map(company => {
+    const companyList = this.state.companies.map(company => {
       if(company.logo===undefined || company.logo==="undefined"){
         company.logo="http://via.placeholder.com/400x400"
       }else{
         company.logo=company.logo.url
       }
       //return a generated card using the CompanyDetail class with the input values
-
       return (
-        <CompanyDetail key={company.id} id={company.id} name={company.name} description={company.description}  logo={company.logo} />
+        <CompanyDetail key={company.id} id={company.id} name={company.name} description={company.description} developed={company.developed.map(n => <span>  {n.name}  </span>)} logo={company.logo} />
       ) 
     });
+    i++;
     //displays the input options on top of screen 
     console.log(this.props.match.params.id); 
     return (
