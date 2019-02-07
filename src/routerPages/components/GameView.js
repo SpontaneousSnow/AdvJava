@@ -68,7 +68,7 @@ class GameView extends Component {
     //displays the input options on top of screen 
 
     return (
-      <div className="columns is-multiline">
+      <div>
         {gameList}
       </div>
     );

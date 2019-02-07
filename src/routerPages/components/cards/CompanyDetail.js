@@ -5,7 +5,7 @@ class CompanyDetail extends React.Component {
   render() {
     return (
       <div className="columns" > 
-        <div className="column is-5 " >
+        <div className="column is-6 " >
           <div className="card is-vcentered is-desktop" >
               <img margin="0px" height="100" width="100" alt='Profile' src={this.props.logo}></img>
               <p className="title is-4">{this.props.name}</p>

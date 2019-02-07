@@ -49,8 +49,10 @@ class CompanyView extends Component {
     const companyList = this.state.companies.map(company => {
       if(!company.logo){
         company.logo="https://bit.ly/2GvICQs"
-      }else{
-        company.logo=company.logo.url
+      }
+      if(!company.developed){
+        company.developed=[];
+        company.developed.push({name:'no genres'})
       }
       //return a generated card using the CompanyDetail class with the input values
       return (
